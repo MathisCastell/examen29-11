@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-// BatailleCartes.css peut-être utilisé pour des animations. 
-// import "./BatailleCartes.css";
 
 const familles = ["♥", "♠", "♦", "♣"];
 const valeurs = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
@@ -44,8 +42,8 @@ const JeuDeCartes = () => {
   const [carteChoisie, setCarteChoisie] = useState<{ valeur: number; famille: string }[]>([]);
 
   const afficherCartes = () => {
-    const nb = Math.min(5, paquetJoueur.length); // Affiche au maximum 5 cartes ou moins si le deck est plus petit
-    setCarteChoisie(paquetJoueur.slice(0, nb)); // Met les cartes affichées dans carteChoisie
+    const nb = Math.min(5, paquetJoueur.length); 
+    setCarteChoisie(paquetJoueur.slice(0, nb)); 
   };
   
 
@@ -87,7 +85,7 @@ const JeuDeCartes = () => {
       
       setCartesARemporter([]);
       
-      setMessage("Joueur gagnat");
+      setMessage("Joueur gagnant");
 
     } else if (nouvelleCarteJoueur.valeur < nouvelleCarteOrdinateur.valeur) {
       setPaquetJoueur(restePaquetJoueur);
@@ -97,7 +95,7 @@ const JeuDeCartes = () => {
         ...cartesARemporter.map((carte) => ({ valeur: carte.valeur, famille: carte.famille })),
       ]);
       setCartesARemporter([]);
-      setMessage("Ordinateur remporte les carte");
+      setMessage("Ordinateur remporte les cartes");
     } else {
 
       const nouvellesCartesARemporter = [{ ...nouvelleCarteJoueur, faceCachee: false },{ ...nouvelleCarteOrdinateur, faceCachee: false },...(restePaquetJoueur[5] ? [{ ...restePaquetJoueur[5], faceCachee: true }] : []),...(restePaquetOrdinateur[5] ? [{ ...restePaquetOrdinateur[5], faceCachee: true }] : []),];
