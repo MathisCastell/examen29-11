@@ -2,13 +2,13 @@ import { Link, Outlet } from "react-router-dom";
 
 const Main = () => {
   return (
-    <div className="flex flex-col w-full min-h-screen bg-gray-100">
-      <nav className="w-full bg-white shadow-md">
+    <div className="bg-green-600 flex flex-col w-full min-h-screen bg-green-600">
+      <nav className="w-full bg-green-1000">
         <ul className="flex justify-center space-x-8 p-5">
         <li>
             <Link
               to="Bataille"
-              className="text-gray-700 hover:text-blue-500 transition duration-200"
+              className="text-white hover:text-black transition duration-200"
             >
               Bataille
             </Link>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-// BattleGame.css non utilisé surement plus tard pour des animations
-// import "./BattleGame.css";
+// BatailleCartes.css mtn utilisé pour des animations. 
+// import "./BatailleCartes.css";
 
 const familles = ["♥", "♠", "♦", "♣"];
 const valeurs = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
@@ -13,6 +13,13 @@ const afficherValeur = (valeur: number): string => {
     14: "A",
   };
   return figures[valeur] || valeur.toString();
+};
+
+type Couleur = "red" | "black";
+
+const obtenirCouleur = (famille: string | undefined): Couleur => {
+  if (!famille) return "black";
+  return famille === "♥" || famille === "♦" ? "red" : "black";
 };
 
 const genererPaquet = () => {
@@ -30,9 +37,7 @@ const JeuDeCartes = () => {
   const [paquetOrdinateur, setPaquetOrdinateur] = useState<{ valeur: number; famille: string }[]>([]);
   const [carteJoueur, setCarteJoueur] = useState<{ valeur: number; famille: string } | null>(null);
   const [carteOrdinateur, setCarteOrdinateur] = useState<{ valeur: number; famille: string } | null>(null);
-  const [cartesARemporter, setCartesARemporter] = useState<
-    { valeur: number; famille: string; faceCachee: boolean }[]
-  >([]);
+  const [cartesARemporter, setCartesARemporter] = useState<{ valeur: number; famille: string; faceCachee: boolean }[]>([]);
   const [message, setMessage] = useState("Cliquer sur le bouton commencer pour lancer la partie");
 
   const commencerPartie = () => {
@@ -57,6 +62,8 @@ const JeuDeCartes = () => {
     const restePaquetJoueur = paquetJoueur.slice(1);
     const restePaquetOrdinateur = paquetOrdinateur.slice(1);
 
+    
+    
     if (nouvelleCarteJoueur.valeur > nouvelleCarteOrdinateur.valeur) {
       
       setPaquetJoueur([...restePaquetJoueur,nouvelleCarteJoueur,nouvelleCarteOrdinateur,...cartesARemporter.map((carte) => ({ valeur: carte.valeur, famille: carte.famille })),]);
@@ -94,13 +101,14 @@ const JeuDeCartes = () => {
     setCarteJoueur(nouvelleCarteJoueur);
 
     setCarteOrdinateur(nouvelleCarteOrdinateur);
-
+    
+  
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col items-center py-8">
+    <div className="bg-green-800 min-h-screen flex flex-col items-center py-8">
       {/*h1 est un indicateur concernant la version du code et non pas le titre définitif*/}
-      <h1 className="text-4xl font-bold text-blue-600 mb-6">Jeu de Cartes Amélioré ++ cartes suivante affichée</h1>
+      <h1 className="text-4xl font-bold text-white mb-6">Jeu de Cartes Amélioré ++ cartes suivante affichée</h1>
       <div className="flex space-x-4 mb-6">
         <button onClick={commencerPartie} className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition">
           Commencer
@@ -109,7 +117,7 @@ const JeuDeCartes = () => {
           Jouer
         </button>
       </div>
-      <p className="text-lg font-medium text-gray-700 mb-6">{message}</p>
+      <p className="text-lg font-medium text-white mb-6">{message}</p>
 
       <div className="flex space-x-12">
       {/*future fonctionnalité d'affichage de la carte suivante du joueur*/}
@@ -120,16 +128,22 @@ const JeuDeCartes = () => {
       </div> */}
       
         <div className="text-center">
-        <h2 className="text-xl font-semibold text-gray-800">Prochaine Carte</h2>
-        <div className="bg-white border border-gray-400 shadow-md p-4 mt-4 w-20 h-32 rounded-md flex items-center justify-center text-2xl font-bold text-red-500">
-          {afficherValeur(paquetJoueur[0].valeur)} {paquetJoueur[0].famille}
-        </div>
+        <h2 className="text-xl font-semibold text-white">Prochaine Carte</h2>
+        {/*Condition obligée car sinon renvoie une erreur lorsque le paquet du joueur n'est pas encore généré*/}
+        {paquetJoueur.length > 0 ? (<div className={`bg-white border border-gray-400 shadow-md p-4 mt-4 w-20 h-32 rounded-md flex items-center justify-center text-2xl font-bold ${obtenirCouleur(paquetJoueur[0].famille) === "red" ? "text-red-500" : "text-black"}`}>
+          
+          <>{afficherValeur(paquetJoueur[0].valeur)} {paquetJoueur[0].famille}</></div>
+        ) : (
+          <></>
+        )
+          
+        }
           
         </div>
         <div className="text-center">
-        <h2 className="text-xl font-semibold text-gray-800">Joueur ({paquetJoueur.length} cartes)</h2>
+        <h2 className="text-xl font-semibold text-white">Joueur ({paquetJoueur.length} cartes)</h2>
           {carteJoueur ? (
-            <div className="bg-white border border-gray-400 shadow-md p-4 mt-4 w-20 h-32 rounded-md flex items-center justify-center text-2xl font-bold text-red-500">
+            <div className={`bg-white border border-gray-400 shadow-md p-4 mt-4 w-20 h-32 rounded-md flex items-center justify-center text-2xl font-bold ${obtenirCouleur(carteJoueur.famille) === "red" ? "text-red-500" : "text-black"}`}>
               {afficherValeur(carteJoueur.valeur)} {carteJoueur.famille}
             </div>
           ) : (
@@ -137,24 +151,25 @@ const JeuDeCartes = () => {
           )}
     </div>
         <div className="text-center">
-          <h2 className="text-xl font-semibold text-gray-800">Cartes à remporter ({cartesARemporter.length})</h2>
+          <h2 className="text-xl font-semibold text-white">Cartes à remporter ({cartesARemporter.length})</h2>
           <div className="flex flex-wrap justify-center gap-2 mt-4">
             {cartesARemporter.map((carte, index) => ( 
-              <div key={index} className={`w-16 h-24 rounded-md flex items-center justify-center shadow-md ${carte.faceCachee ? "bg-blue-500" : "bg-white border border-gray-400"}`}>
+              <div key={index} className={`w-16 h-24 rounded-md flex items-center justify-center shadow-md ${carte.faceCachee ? "bg-red-800" : "bg-white border border-gray-400"}`}>
                 {!carte.faceCachee && (<span className="text-lg font-bold text-black"> {afficherValeur(carte.valeur)} {carte.famille}</span>)}
             </div>))}
         </div>
         </div>
 
         <div className="text-center">
-          <h2 className="text-xl font-semibold text-gray-800">Ordinateur ({paquetOrdinateur.length} cartes)</h2>
+          <h2 className="text-xl font-semibold text-white">Ordinateur ({paquetOrdinateur.length} cartes)</h2>
           {carteOrdinateur ? (
-          <div className="bg-white border border-gray-400 shadow-md p-4 mt-4 w-20 h-32 rounded-md flex items-center justify-center text-2xl font-bold text-black">
+          <div className={`bg-white border border-gray-400 shadow-md p-4 mt-4 w-20 h-32 rounded-md flex items-center justify-center text-2xl font-bold ${obtenirCouleur(carteOrdinateur.famille) === "red" ? "text-red-500" : "text-black"}`}>
           {afficherValeur(carteOrdinateur.valeur)} {carteOrdinateur.famille} </div>) : (
           <div className="bg-gray-200 p-4 mt-4 w-20 h-32 rounded-md text-xl text-gray-500">Vide</div>)}</div>
       </div>
     </div>
   );
+
 };
 
 export default JeuDeCartes;
