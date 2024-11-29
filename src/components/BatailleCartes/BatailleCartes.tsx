@@ -134,7 +134,7 @@ const JeuDeCartes = () => {
           </div>
         ))}
       </div>
-      <h1 className="text-4xl font-bold text-white mb-6">Jeu de Cartes Bataille version qui bug encore</h1>
+      <h1 className="text-4xl font-bold text-white mb-6">Jeu de Cartes : La Bataille</h1>
       <div className="flex space-x-4 mb-6">
         <button onClick={commencerPartie} className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition">
           Commencer
