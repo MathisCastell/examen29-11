@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// BatailleCartes.css mtn utilisé pour des animations. 
+// BatailleCartes.css avant utilisé pour des animations. 
 // import "./BatailleCartes.css";
 
 const familles = ["♥", "♠", "♦", "♣"];
