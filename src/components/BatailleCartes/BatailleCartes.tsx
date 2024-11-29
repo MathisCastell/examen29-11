@@ -43,7 +43,10 @@ const JeuDeCartes = () => {
   const [message, setMessage] = useState("Cliquer sur le bouton commencer pour lancer la partie");
   const [carteChoisie, setCarteChoisie] = useState<{ valeur: number; famille: string }[]>([]);
 
-  
+  const afficherCartes = () => {
+    const nb = Math.min(5, paquetJoueur.length); // Affiche au maximum 5 cartes ou moins si le deck est plus petit
+    setCarteChoisie(paquetJoueur.slice(0, nb)); // Met les cartes affichées dans carteChoisie
+  };
   
 
   const commencerPartie = () => {
