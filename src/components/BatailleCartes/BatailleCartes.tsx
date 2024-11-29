@@ -100,7 +100,7 @@ const JeuDeCartes = () => {
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col items-center py-8">
       {/*h1 est un indicateur concernant la version du code et non pas le titre définitif*/}
-      <h1 className="text-4xl font-bold text-blue-600 mb-6">Jeu de Cartes Amélioré - égalité gérées - Affichage cartes amélioré</h1>
+      <h1 className="text-4xl font-bold text-blue-600 mb-6">Jeu de Cartes Amélioré ++ cartes suivante affichée</h1>
       <div className="flex space-x-4 mb-6">
         <button onClick={commencerPartie} className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition">
           Commencer
@@ -120,7 +120,14 @@ const JeuDeCartes = () => {
       </div> */}
       
         <div className="text-center">
-          <h2 className="text-xl font-semibold text-gray-800">Joueur ({paquetJoueur.length} cartes)</h2>
+        <h2 className="text-xl font-semibold text-gray-800">Prochaine Carte</h2>
+        <div className="bg-white border border-gray-400 shadow-md p-4 mt-4 w-20 h-32 rounded-md flex items-center justify-center text-2xl font-bold text-red-500">
+          {afficherValeur(paquetJoueur[0].valeur)} {paquetJoueur[0].famille}
+        </div>
+          
+        </div>
+        <div className="text-center">
+        <h2 className="text-xl font-semibold text-gray-800">Joueur ({paquetJoueur.length} cartes)</h2>
           {carteJoueur ? (
             <div className="bg-white border border-gray-400 shadow-md p-4 mt-4 w-20 h-32 rounded-md flex items-center justify-center text-2xl font-bold text-red-500">
               {afficherValeur(carteJoueur.valeur)} {carteJoueur.famille}
@@ -128,8 +135,7 @@ const JeuDeCartes = () => {
           ) : (
             <div className="bg-gray-200 p-4 mt-4 w-20 h-32 rounded-md text-xl text-gray-500">Vide</div>
           )}
-        </div>
-        
+    </div>
         <div className="text-center">
           <h2 className="text-xl font-semibold text-gray-800">Cartes à remporter ({cartesARemporter.length})</h2>
           <div className="flex flex-wrap justify-center gap-2 mt-4">
