@@ -212,10 +212,10 @@ const JeuDeCartes = () => {
     {carteChoisie.map((carte, index) => (
       <div
         key={index}
-        onClick={() => setCarteJoueur(carte)} // Sélectionne une carte pour jouer
+        onClick={() => setCarteJoueur(carte)} 
         className={`cursor-pointer bg-white border border-gray-400 shadow-md p-4 w-20 h-32 rounded-md flex items-center justify-center text-2xl font-bold ${
           obtenirCouleur(carte.famille) === "red" ? "text-red-500" : "text-black"
-        } ${carte === carteJoueur ? "ring-4 ring-blue-500" : ""}`} // Ajout d'un style visuel pour la carte sélectionnée
+        } ${carte === carteJoueur ? "ring-4 ring-blue-500" : ""}`} 
       >
         {afficherValeur(carte.valeur)} {carte.famille}
       </div>
